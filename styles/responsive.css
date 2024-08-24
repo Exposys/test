@@ -495,7 +495,7 @@
     margin-bottom: 35px;
   }
   .page-title-area {
-    height: 300px;
+    height: 0px;
   }
   .page-title-content {
     margin-top: 60px;
@@ -689,6 +689,7 @@
   .modal-video-body .modal-video-close-btn {
     right: 0;
   }
+ 
 }
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .work-item .work-content {
@@ -1510,4 +1511,7 @@
     right: 26%;
     top: 70px;
   }
+
+
+
 }/*# sourceMappingURL=responsive.css.map */

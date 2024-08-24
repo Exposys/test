@@ -3,11 +3,11 @@ import Styles from "../Products/Product.module.css"
 const Card = ({ img, title, header, linkToDocument }) => {
   return (
     <>
-      <section className={Styles.card}>
-        <div className={Styles.card_details}>
-          <h3 className={Styles.card_title}>{title}</h3>
+      <section className={Styles.p_card}>
+        <div className={Styles.p_card_details}>
+          <h3 className={Styles.p_card_title}>{title}</h3>
         </div>
-        <section className={Styles.card_heade}>
+        <section className={Styles.p_card_heade}>
           <Link
             href={linkToDocument}
             target="_blank" rel="noopener noreferrer"

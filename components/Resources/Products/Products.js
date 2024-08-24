@@ -1,116 +1,161 @@
-
 import Sidebar from "../Sidebar/Sidebar";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Card from "../cards/Card";
 import styles from "./Product.module.css";
+import axios from "axios";
 
 const Products = () => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [query, setQuery] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/products', {
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        setError(error.message);
+  const apiUrl = "/api/resources";
+
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(apiUrl);
+
+      if (response.data && Array.isArray(response.data.documents)) {
+        setProducts(response.data.documents);
+      } else {
+        setError("Unexpected data format.");
       }
-    };
+    } catch (error) {
+      setError("Error fetching data. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  }, [apiUrl]);
+
+  useEffect(() => {
     fetchData();
   }, []);
 
   const handleInputChange = (event) => {
     setQuery(event.target.value);
   };
-
-  const productsArray = Array.isArray(products)? products : [products];
-
-  const filteredItems = productsArray.filter((product) => {
-    if (!product ||!product.title) return false;
-    return product.title.toLowerCase().indexOf(query.toLowerCase())!== -1;
-  });
-
   const handleChange = (event) => {
-    setSelectedCategory(event.target.value);
-  };
+    const value = event.target.value;
+    const checked = event.target.checked;
 
-  const filteredData = (products, selected, query) => {
+    if (checked) {
+      setSelectedCategories([...selectedCategories, value]);
+    } else {
+      setSelectedCategories(
+        selectedCategories.filter((category) => category !== value)
+      );
+    }
+  };
+  const filteredItems = products.filter(
+    (product) =>
+      product.title.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
+      product.types.toLowerCase().indexOf(query.toLowerCase()) !== -1
+  );
+
+  function filteredData(products, selectedCategories, query) {
     let filteredProducts = products;
 
+    // Filter by query if present
     if (query) {
       filteredProducts = filteredItems;
     }
 
-    if (selected) {
-      filteredProducts = filteredProducts.filter((product) => {
-        if (!product) return false;
-        return (
-          product.categories === selected ||
-          product.header === selected ||
-          product.types === selected ||
-          product.title === selected
-        );
-      });
+    // Filter by category if selected
+    if (selectedCategories.length > 0) {
+      const types = [...new Set(products.map((product) => product.types))];
+      const categories = [
+        ...new Set(products.map((product) => product.categories)),
+      ];
+
+      const selectedTypes = types.filter((type) =>
+        selectedCategories.includes(type)
+      );
+      const selectedCategoriesFilter = categories.filter((category) =>
+        selectedCategories.includes(category)
+      );
+
+      if (selectedCategories.includes("all")) {
+        filteredProducts = products;
+      } else if (
+        selectedTypes.length > 0 &&
+        selectedCategoriesFilter.length === 0
+      ) {
+        filteredProducts = filteredProducts.filter((product) => {
+          return selectedTypes.includes(product.types);
+        });
+      } else if (
+        selectedTypes.length > 0 &&
+        selectedCategoriesFilter.length > 0
+      ) {
+        filteredProducts = filteredProducts.filter((product) => {
+          return (
+            selectedTypes.includes(product.types) &&
+            selectedCategoriesFilter.some(
+              (category) => product.categories === category
+            )
+          );
+        });
+      } else {
+        filteredProducts = filteredProducts.filter((product) => {
+          return selectedCategories.some((category) => {
+            return (
+              product.categories === category ||
+              product.header === category ||
+              product.types === category ||
+              product.title === category
+            );
+          });
+        });
+      }
     }
 
-    return filteredProducts?.map((product) => {
-      if (!product) return null;
-      return (
+    return filteredProducts.map(
+      ({ previewImageUrl, title, types, header, linkToDocument }) => (
         <Card
           key={Math.random()}
-          img={product.previewImageUrl}
-          title={product.title}
-          types={product.types}
-          header={product.header}
+          img={previewImageUrl}
+          title={title}
+          types={types}
+          header={header}
           linkToDocument={
-            product.linkToDocument && product.linkToDocument!== ""
-             ? product.linkToDocument
-              : null
+            linkToDocument && linkToDocument !== "" ? linkToDocument : null
           }
           target="_blank"
         />
-      );
-    });
-  };
+      )
+    );
+  }
+  const results = filteredData(products, selectedCategories, query);
 
-  useEffect(() => {
-    const results = filteredData(products, selectedCategory, query);
-    setFilteredProducts(results);
-  }, [products, selectedCategory, query]);
-
-  const filteredCount = filteredProducts.length;
+  const filteredCount = results.length;
 
   return (
-    <div className={styles.product_h}>
-      <Sidebar
-        handleChange={handleChange}
-        query={query}
-        handleInputChange={handleInputChange}
-      />
-      <section className={styles.main_p}>
-        <section className={styles.result_card}>
-          <h1 className={styles.h1}>
-            {error? "Error fetching data" : `${filteredCount} Result`}
-          </h1>
+    <>
+      <div className={styles.product_h}>
+        <Sidebar
+          handleChange={handleChange}
+          query={query}
+          handleInputChange={handleInputChange}
+        />
+        <section className={styles.main_p}>
+          <section className={styles.result_card}>
+            {loading ? (
+              <h1 className={styles.h1}>Loading...</h1>
+            ) : error ? (
+              <h1 className={styles.h1}>{error}</h1>
+            ) : (
+              <h1 className={styles.h1}>
+                {filteredCount} Result{filteredCount !== 1 ? "s" : ""}
+              </h1>
+            )}
+          </section>
+          <section className={styles.card_container}>{results}</section>
         </section>
-        <section className={styles.card_container}>
-          {error? (
-            <p style={{ color: "red" }}>{error}</p>
-          ) : (
-            <div>{filteredProducts}</div>
-          )}
-        </section>
-      </section>
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -1,4 +1,3 @@
-
 .sidebar {
   font-family: Manrope;
   width: 18%;
@@ -16,7 +15,6 @@
   margin-top: 0rem;
   height: auto;
 }
-
 
 .sidebar::-webkit-scrollbar {
   width: 10px;
@@ -43,7 +41,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.head_h1{
+.head_h1 {
   font-size: 30px;
   font-weight: 800;
   font-family: Marope;
@@ -77,4 +75,17 @@
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
-
+@media only screen and (max-width: 968px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    margin: 10px 4rem;
+  }
+  .search_input{
+    width: 60%;
+    margin-left: 1rem;
+  }
+  .logo_container{
+    display: block;
+  }
+}

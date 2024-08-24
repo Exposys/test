@@ -1,10 +1,14 @@
-
+.card_header{
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 30px;
+}
 .product_h{
 min-height: 100vh;
 margin-left: 2rem;
 }
 .main_p {
-  padding-left: 25rem; 
+  padding-left: 20rem; 
 }
 
 .result_card {
@@ -27,13 +31,14 @@ margin-left: 2rem;
 }
 
 
-.card_title {
+.p_card_title {
   margin-bottom: 0.5rem;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 800;
+  font-family: Monrope;
 }
 
-.card {
+.p_card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,29 +48,31 @@ margin-left: 2rem;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: 20px;
-  min-height: 250px; /* add this line */
-  max-height: 350px; /* add this line */
+  min-height: 250px;
+  max-height: 350px; 
+  font-family: Manrope;
 }
 
-.card_details {
+.p_card_details {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
 }
 
-.card_header {
+.p_card_heade {
   font-size: 20px;
   font-weight: 300;
   margin-bottom: 10px;
   font-family: Raleway;
   text-decoration: underline;
+  text-decoration-color: #795DA6;
   color: black;
 }
 
 .card-img {
   width: 80%;
-  height: 150px;
+  height: auto;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -75,4 +82,59 @@ margin-left: 2rem;
   font-weight: 500;
   margin-left: 20px;
   font-size: 28px;
+}
+@media only screen and (max-width: 767px){
+  .product_h{
+    margin-top: 5rem;
+    margin-left: 0px;
+  }
+  .p_card{
+    width: 40%;
+  }
+  .main_p{
+    padding-left: 10rem;
+  }
+  .h1{
+    font-size: 25px;
+  }
+  .p_card_title{
+    font-size: 18px;
+  }
+  .p_card_heade{
+    font-size: 18px;
+  }
+  .card_header{
+    font-size: 18px;
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 968px){
+  .product_h{
+    margin-top: 5rem;
+    margin-left: 0px;
+  }
+  .p_card{
+    width: 40%;
+  }
+  .main_p{
+    padding-left: 1rem;
+  }
+  .card_container{
+    margin-left: 0px;
+  }
+}
+@media only screen and (max-width: 467px){
+  .product_h{
+    margin-top: 5rem;
+    margin-left: 0px;
+  }
+  .p_card{
+    width: 100%;
+  }
+  .main_p{
+    padding-left: 1rem;
+  }
+  .card_container{
+    margin-left: 0px;
+  }
 }
