@@ -607,6 +607,7 @@ Navbar Area CSS
   width: 100%;
 }
 
+
 .main-nav .black-logo {
   display: none;
 }
@@ -2232,6 +2233,7 @@ Services Section CSS
   color: #795DA6;
   background-color: #ffffff;
 }
+
 .single-services-box:hover h3 {
   color: #ffffff;
 }
@@ -2312,8 +2314,13 @@ font-weight: 500;
 }
 
 /* General tab styles */
+		  
+			  
+ .fe_tab_t{
+ width:100%;
+ }
 .tab_t {
-  width: 18%;
+  width: 20%;
   cursor: pointer;
   text-align: center;
   transition: background-color 0.3s ease;
@@ -2354,10 +2361,20 @@ font-weight: 500;
   width: 65%;
   color: #795DA6;
 }
-
-.card-title span{
+.single-services-box .p_2 {
+  transform: rotate(360deg);
   color: #795DA6;
+  background-color: transparent;
+  padding-right: 0.7rem;
 }
+.single-services-box:hover .p_2 {
+  transform: rotate(360deg);
+  color: #ffffff;
+  background-color: transparent;
+}					
+				 
+								
+ 
 .feature_box .fe_card{
   color: #393953;
   font-size: 26px;

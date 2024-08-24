@@ -5,7 +5,7 @@ import Image from "next/image";
 const WorkingProcess = () => {
   return (
     <>
-      <div className="process-section pt-100 pb-70">
+      <div className="process-section  pb-70">
         <div className="container">
           <div className="section-title"></div>
 

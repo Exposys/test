@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <>
       {/* Top Footer Section */}
-      <footer className="footer-section ptb-100" style={{}}>
+      <footer className="footer-section ptb-100">
         <div className="container">
           <div className="row">
             <div className="col-lg-2 col-md-6 col-sm-6">
@@ -104,7 +104,8 @@ const Footer = () => {
             <div className="col-lg-3 col-md-6 col-sm-6">
               <div className="single-footer-widget">
                 <div className="footer-heading">
-                  <h3>Social Links</h3></div>
+                  <h3>Social Links</h3>
+                </div>
 
                 <ul className="footer-social">
                   <li>
