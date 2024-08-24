@@ -45,14 +45,15 @@ const Products = () => {
       setSelectedCategories([...selectedCategories, value]);
     } else {
       setSelectedCategories(
-        selectedCategories.filter((category) => category !== value)
+        selectedCategories.filter((category) => category!== value)
       );
     }
   };
+
   const filteredItems = products.filter(
     (product) =>
-      product.title.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
-      product.types.toLowerCase().indexOf(query.toLowerCase()) !== -1
+      product.title.toLowerCase().indexOf(query.toLowerCase())!== -1 ||
+      product.types.toLowerCase().indexOf(query.toLowerCase())!== -1
   );
 
   function filteredData(products, selectedCategories, query) {
@@ -67,7 +68,7 @@ const Products = () => {
     if (selectedCategories.length > 0) {
       const types = [...new Set(products.map((product) => product.types))];
       const categories = [
-        ...new Set(products.map((product) => product.categories)),
+       ...new Set(products.map((product) => product.categories)),
       ];
 
       const selectedTypes = types.filter((type) =>
@@ -112,6 +113,39 @@ const Products = () => {
       }
     }
 
+    // Additional conditions
+    if (selectedCategories.includes("all") && selectedCategories.length > 1) {
+      filteredProducts = filteredProducts.filter((product) => {
+        return selectedCategories.some((category) => {
+          return (
+            product.categories === category ||
+            product.header === category ||
+            product.types === category ||
+            product.title === category
+          );
+        });
+      });
+    }
+
+    if (selectedCategories.includes("types") && selectedCategories.length > 1) {
+      filteredProducts = filteredProducts.filter((product) => {
+        return selectedCategories.some((category) => {
+          return product.types === category;
+        });
+      });
+    }
+
+    if (
+      selectedCategories.includes("categories") &&
+      selectedCategories.length > 1
+    ) {
+      filteredProducts = filteredProducts.filter((product) => {
+        return selectedCategories.some((category) => {
+          return product.categories === category;
+        });
+      });
+    }
+
     return filteredProducts.map(
       ({ previewImageUrl, title, types, header, linkToDocument }) => (
         <Card
@@ -121,13 +155,14 @@ const Products = () => {
           types={types}
           header={header}
           linkToDocument={
-            linkToDocument && linkToDocument !== "" ? linkToDocument : null
+            linkToDocument && linkToDocument!== ""? linkToDocument : null
           }
           target="_blank"
         />
       )
     );
   }
+
   const results = filteredData(products, selectedCategories, query);
 
   const filteredCount = results.length;
