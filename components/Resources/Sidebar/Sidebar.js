@@ -7,11 +7,11 @@ const Sidebar = ({ handleChange, handleInputChange, query }) => {
     <>
       <section className={styles.sidebar_main}>
         <div className={styles.sidebar}>
-        <h1 className={styles.head_h1}>Resources</h1>
+          <h1 className={styles.head_h1}>Resources</h1>
           <div className={styles.logo_container}>
-            <lable for="serach item" className={styles.label}>
+            <label for="search item" className={styles.label}>
               Search Item
-            </lable>
+            </label>
             <input
               className={styles.search_input}
               type="text"

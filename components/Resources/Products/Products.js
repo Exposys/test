@@ -45,32 +45,33 @@ const Products = () => {
       setSelectedCategories([...selectedCategories, value]);
     } else {
       setSelectedCategories(
-        selectedCategories.filter((category) => category!== value)
+        selectedCategories.filter((category) => category !== value)
       );
     }
   };
-
   const filteredItems = products.filter(
     (product) =>
-      product.title.toLowerCase().indexOf(query.toLowerCase())!== -1 ||
-      product.types.toLowerCase().indexOf(query.toLowerCase())!== -1
+      product.title.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
+      product.types.toLowerCase().indexOf(query.toLowerCase()) !== -1
   );
 
-  function filteredData(products, selectedCategories, query) {
+  const filteredData = (products, selectedCategories, query) => {
     let filteredProducts = products;
-
     // Filter by query if present
     if (query) {
-      filteredProducts = filteredItems;
+      filteredProducts = products.filter(
+        (product) =>
+          product.title.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
+          product.types.toLowerCase().indexOf(query.toLowerCase()) !== -1
+      );
     }
 
     // Filter by category if selected
     if (selectedCategories.length > 0) {
       const types = [...new Set(products.map((product) => product.types))];
       const categories = [
-       ...new Set(products.map((product) => product.categories)),
+        ...new Set(products.map((product) => product.categories)),
       ];
-
       const selectedTypes = types.filter((type) =>
         selectedCategories.includes(type)
       );
@@ -78,7 +79,13 @@ const Products = () => {
         selectedCategories.includes(category)
       );
 
-      if (selectedCategories.includes("all")) {
+      if (
+        selectedCategories.includes("select-all") &&
+        selectedCategories.includes("types") &&
+        selectedCategories.includes("categories")
+      ) {
+        filteredProducts = products;
+      } else if (selectedCategories.includes("select-all")) {
         filteredProducts = products;
       } else if (
         selectedTypes.length > 0 &&
@@ -114,7 +121,10 @@ const Products = () => {
     }
 
     // Additional conditions
-    if (selectedCategories.includes("all") && selectedCategories.length > 1) {
+    if (
+      selectedCategories.includes("select-all") &&
+      selectedCategories.length > 1
+    ) {
       filteredProducts = filteredProducts.filter((product) => {
         return selectedCategories.some((category) => {
           return (
@@ -130,7 +140,7 @@ const Products = () => {
     if (selectedCategories.includes("types") && selectedCategories.length > 1) {
       filteredProducts = filteredProducts.filter((product) => {
         return selectedCategories.some((category) => {
-          return product.types === category;
+          return product.types === category || true;
         });
       });
     }
@@ -141,8 +151,20 @@ const Products = () => {
     ) {
       filteredProducts = filteredProducts.filter((product) => {
         return selectedCategories.some((category) => {
-          return product.categories === category;
+          return product.categories === category || true;
         });
+      });
+    }
+
+    // Check if both "all" from types and categories are selected
+    if (
+      selectedCategories.includes("select-all") &&
+      selectedCategories.length === 1
+    ) {
+      filteredProducts = products;
+      const checkboxes = document.querySelectorAll("#check_1");
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = true;
       });
     }
 
@@ -155,14 +177,13 @@ const Products = () => {
           types={types}
           header={header}
           linkToDocument={
-            linkToDocument && linkToDocument!== ""? linkToDocument : null
+            linkToDocument && linkToDocument !== "" ? linkToDocument : null
           }
           target="_blank"
         />
       )
     );
-  }
-
+  };
   const results = filteredData(products, selectedCategories, query);
 
   const filteredCount = results.length;

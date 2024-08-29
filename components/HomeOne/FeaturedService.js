@@ -93,11 +93,11 @@ const CoreValues = () => {
         <span>
           Guided by Values, Driven by Innovation, Focused on Your Success
         </span>
-        <div className="row col-12 col-md-12 col-sm-12 mt-4 fe_tab_t">
+        <div className="row mt-4">
           {tabs.map((tab, index) => (
             <div
               key={index}
-              className={`col-lg-3 col-md-6 col-sm-12 mb-0 tab_t ${activeTab === index ? "active" : ""}`}
+              className={`col-2 mb-0 tab_t ${activeTab === index ? "active" : ""}`}
               onClick={() => handleTabClick(index)}
             >
               <div className="tab-title">
@@ -120,9 +120,9 @@ const CoreValues = () => {
             <div className="row">
               {tabs[activeTab].cards.map((card, index) => (
                 <div key={index} className="col-lg-6 col-md-6 mb-4">
-                  <div className="single-services-box feature_box pt-4">
+                  <div className="single-services-box feature_box">
                     <h2 className="card-title fe_card">
-                      <span className="icon p_2">
+                      <span className="p-2">
                         <i className="flaticon-big-data"></i>
                       </span>
                       {card.title}

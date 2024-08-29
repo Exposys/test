@@ -30,7 +30,7 @@ function Category({ handleChange }) {
 
       <div className={Styles.main}>
         <label className={Styles.sidebar_label_container}>
-          <input onChange={handleChange} type="checkbox" value="all" name="test" />
+          <input onChange={handleChange} type="checkbox" value="select-all" name="test" id="check_1"/>
           <span className={Styles.checkmark}></span>All
         </label>
         {error ? (

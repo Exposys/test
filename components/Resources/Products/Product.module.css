@@ -1,19 +1,19 @@
-.card_header {
+.card_header{
   font-size: 25px;
   font-weight: 500;
   line-height: 30px;
 }
-.product_h {
-  min-height: 100vh;
-  margin-left: 2rem;
+.product_h{
+min-height: 100vh;
+margin-left: 2rem;
 }
 .main_p {
-  padding-left: 20rem;
+  padding-left: 20rem; 
 }
 
 .result_card {
   margin-top: 2rem;
-  max-height: 100vh;
+  max-height: 100vh; 
 }
 
 .card_container {
@@ -25,10 +25,11 @@
   font-family: 400;
   margin-left: 1.3rem;
 }
-.result_card::after {
+.result_card::after{
   content: "";
   max-height: 100vh;
 }
+
 
 .p_card_title {
   margin-bottom: 0.5rem;
@@ -48,7 +49,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: 20px;
   min-height: 250px;
-  max-height: 350px;
+  max-height: 350px; 
   font-family: Manrope;
 }
 
@@ -65,7 +66,7 @@
   margin-bottom: 10px;
   font-family: Raleway;
   text-decoration: underline;
-  text-decoration-color: #795da6;
+  text-decoration-color: #795DA6;
   color: black;
 }
 
@@ -79,70 +80,61 @@
 .h1 {
   font-family: Manrope;
   font-weight: 500;
-  margin-left: 2rem;
+  margin-left: 20px;
   font-size: 28px;
 }
-@media only screen and (max-width: 767px) {
-  .product_h {
+@media only screen and (max-width: 767px){
+  .product_h{
     margin-top: 5rem;
     margin-left: 0px;
-  }
-  .p_card {
-    width: 40%;
-  }
-  .main_p {
-    padding-left: 9rem;
-  }
-  .h1 {
-    font-size: 25px;
-    margin-left: 10px;
-  }
-  .p_card_title {
-    font-size: 18px;
-  }
-  .p_card_heade {
-    font-size: 18px;
-  }
-  .card_header {
-    font-size: 18px;
-    width: 100%;
-  }
-}
-@media only screen and (max-width: 968px) {
-  .product_h {
-    margin-top: 5rem;
-    margin-left: 0px;
-  }
-  .p_card {
-    width: 40%;
-  }
-  .main_p {
-    padding-left: 1rem;
-  }
-  .card_container {
-    margin-left: 0px;
-  }
-}
-@media only screen and (min-width: 968px) and (max-width: 1199px) {
-  .card_container {
-    width: auto;
   }
   .p_card{
     width: 40%;
   }
+  .main_p{
+    padding-left: 10rem;
+  }
+  .h1{
+    font-size: 25px;
+  }
+  .p_card_title{
+    font-size: 18px;
+  }
+  .p_card_heade{
+    font-size: 18px;
+  }
+  .card_header{
+    font-size: 18px;
+    width: 100%;
+  }
 }
-@media only screen and (max-width: 467px) {
-  .product_h {
+@media only screen and (max-width: 968px){
+  .product_h{
     margin-top: 5rem;
     margin-left: 0px;
   }
-  .p_card {
+  .p_card{
+    width: 40%;
+  }
+  .main_p{
+    padding-left: 1rem;
+  }
+  .card_container{
+    margin-left: 0px;
+  }
+}
+@media only screen and (max-width: 467px){
+  .product_h{
+    margin-top: 5rem;
+    margin-left: 0px;
+  }
+  .p_card{
     width: 100%;
   }
-  .main_p {
-    padding-left: 0rem;
+  .main_p{
+    padding-left: 1rem;
   }
-  .card_container {
+  .card_container{
     margin-left: 0px;
   }
 }
